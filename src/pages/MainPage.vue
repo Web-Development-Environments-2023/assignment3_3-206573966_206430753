@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <h1 class="title">Main Page</h1>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" />
+    <b-row>
+    <b-col>
+    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" ref="list1"/>
+    <button @click="$refs.list1.updateRecipes()">Show New Recipes</button>
+    </b-col>
+    <b-col>
     <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
     {{ !$root.store.username }}
     <RecipePreviewList
@@ -12,7 +17,8 @@
         center: true
       }"
       disabled
-    ></RecipePreviewList>
+    ></RecipePreviewList></b-col>
+  </b-row>
     <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
     >
@@ -26,8 +32,16 @@ import RecipePreviewList from "../components/RecipePreviewList";
 export default {
   components: {
     RecipePreviewList
+  },
+  methods: {
+    async restert()
+    {
+      
+    }
+  
   }
 };
+
 </script>
 
 <style lang="scss" scoped>
