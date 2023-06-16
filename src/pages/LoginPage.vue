@@ -91,24 +91,27 @@ export default {
       const { $dirty, $error } = this.$v.form[param];
       return $dirty ? !$error : null;
     },
+
     async Login() {
       try {
-        
+        // this.axios.defaults.withCredentials=true;
         const response = await this.axios.post(
+
           // "https://test-for-3-2.herokuapp.com/user/Login",
           this.$root.store.server_domain +"/Login",
-          // "http://132.72.65.211:80/Login",
+          // "http://127.0.0.1:3000/Login",
           // "http://132.73.84.100:80/Login",
 
           {
             username: this.form.username,
             password: this.form.password
-          }
+          } ,{withCredentials:true}
         );
+        // this.axios.defaults.withCredentials=false;
         // console.log(response);
         // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
-        this.$root.store.login(this.form.username);
+        // console.log(this.$root.store.login);
+        this.$root.store.login(this.form.username,response.data.id);
         this.$router.push("/");
       } catch (err) {
         console.log(err.response);
@@ -116,7 +119,7 @@ export default {
       }
     },
     onLogin() {
-      // console.log("login method called");
+      console.log("login method called");
       this.form.submitError = undefined;
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
