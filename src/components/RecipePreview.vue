@@ -3,7 +3,27 @@
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
-    <div class="recipe-body">
+  <div class="card" style="width: 18rem;">
+    <img v-if="image_load" :src="recipe.image" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">      
+        <div :title="recipe.title" class="recipe-title">
+        {{ recipe.title }}
+        </div></h5>
+      <p class="card-text">
+        <ul>
+          <li>{{ recipe.readyInMinutes }} minutes</li>
+          <li>{{ recipe.popularity }} likes</li>
+          <li> vegan: {{ recipe.vegan }}</li>
+          <li> vegetarian: {{ recipe.vegetarian }}</li>
+          <li> glutenFree: {{ recipe.glutenFree }}</li>
+          <li> favorite: {{ this.favorite }}</li>
+        </ul>
+      </p>
+    </div>
+  </div>
+
+    <!-- <div class="recipe-body">
       <img v-if="image_load" :src="recipe.image" class="recipe-image" />
     </div>
     <div class="recipe-footer">
@@ -12,9 +32,12 @@
       </div>
       <ul class="recipe-overview">
         <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
+        <li>{{ recipe.popularity }} likes</li>
+        <li> vegan: {{ recipe.vegan }}</li>
+        <li> vegetarian: {{ recipe.vegetarian }}</li>
+        <li> glutenFree: {{ recipe.glutenFree }}</li>
       </ul>
-    </div>
+    </div> -->
   </router-link>
 </template>
 
@@ -24,10 +47,12 @@ export default {
     this.axios.get(this.recipe.image).then((i) => {
       this.image_load = true;
     });
+    this.getIfFavorite();
   },
   data() {
     return {
-      image_load: false
+      image_load: false,
+      favorite: false,
     };
   },
   props: {
@@ -59,6 +84,42 @@ export default {
     //     return undefined;
     //   }
     // }
+  },
+  methods: {
+    async getIfFavorite() {
+      if(this.$root.store.username)
+      
+      // if(!this.$cookies.get("session"))
+      {
+        console.log("here")
+        try {
+        // this.axios.defaults.withCredentials=true;
+        const response = await this.axios.get(
+          // this.$root.store.server_domain + "/recipes/random",
+          "http://127.0.0.1:3000/users/favorites", {withCredentials:true}
+        );
+        // this.axios.defaults.withCredentials=false;
+        console.log("response");
+        let fav=response.data;
+        fav.forEach(element => {
+          if(element.id==this.recipe.id)
+          {
+            this.favorite==true;
+          }
+          
+        });
+        
+        // const recipes = response.data;
+        // console.log(recipes)
+        // this.recipes = [];
+        // this.recipes.push(...recipes);
+        // console.log(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+      }
+      
+    }
   }
 };
 </script>
