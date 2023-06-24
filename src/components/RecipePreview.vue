@@ -1,10 +1,14 @@
 <template>
-  <router-link
+
+  <div class="card" style="width: 18rem;">
+    <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
-  <div class="card" style="width: 18rem;">
-    <img v-if="image_load" :src="recipe.image" class="card-img-top" alt="...">
+    <!-- <img v-if="image_load" :src="recipe.image" class="card-img-top" alt="..."> -->
+    <img :src="recipe.image" class="card-img-top" alt="...">
+
+  </router-link>
     <div class="card-body">
       <h5 class="card-title">      
         <div :title="recipe.title" class="recipe-title">
@@ -17,42 +21,34 @@
           <li> vegan: {{ recipe.vegan }}</li>
           <li> vegetarian: {{ recipe.vegetarian }}</li>
           <li> glutenFree: {{ recipe.glutenFree }}</li>
-          <li> favorite: {{ this.favorite }}</li>
+          <li v-if="favorite"> favorite</li>
+          <li v-if="whatched"> whatched</li>
+
         </ul>
       </p>
-    </div>
+    </div> 
+    <b-button size="sm" class="mb-2" @click="addtofavorite">
+            <b-icon icon="heart" aria-hidden="true"></b-icon>
+  </b-button>  
   </div>
 
-    <!-- <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
-    </div>
-    <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
-        {{ recipe.title }}
-      </div>
-      <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.popularity }} likes</li>
-        <li> vegan: {{ recipe.vegan }}</li>
-        <li> vegetarian: {{ recipe.vegetarian }}</li>
-        <li> glutenFree: {{ recipe.glutenFree }}</li>
-      </ul>
-    </div> -->
-  </router-link>
+  
 </template>
 
 <script>
 export default {
   mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
+    // this.axios.get(this.recipe.image).then((i) => {
+    //   this.image_load = true;
+    // });
     this.getIfFavorite();
+    this.getIfwhatched();
   },
   data() {
     return {
-      image_load: false,
+      // image_load: false,
       favorite: false,
+      whatched: false
     };
   },
   props: {
@@ -93,33 +89,79 @@ export default {
       {
         console.log("here")
         try {
-        // this.axios.defaults.withCredentials=true;
         const response = await this.axios.get(
           // this.$root.store.server_domain + "/recipes/random",
           "http://127.0.0.1:3000/users/favorites", {withCredentials:true}
         );
-        // this.axios.defaults.withCredentials=false;
         console.log("response");
         let fav=response.data;
         fav.forEach(element => {
-          if(element.id==this.recipe.id)
+          if(element!=null)
           {
-            this.favorite==true;
+            if(element.id==this.recipe.id)
+            {
+              this.favorite=true;
+            }
           }
-          
         });
         
-        // const recipes = response.data;
-        // console.log(recipes)
-        // this.recipes = [];
-        // this.recipes.push(...recipes);
-        // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
       }
       
-    }
+    },
+
+
+    async getIfwhatched() {
+      if(this.$root.store.username)
+      
+      // if(!this.$cookies.get("session"))
+      {
+        console.log("here")
+        try {
+        const response = await this.axios.get(
+          // this.$root.store.server_domain + "/recipes/random",
+          "http://127.0.0.1:3000/users/UserViewed", {withCredentials:true}
+        );
+        
+        let whatc=response.data;
+        whatc.forEach(element => {
+          if(element!=null)
+          {
+            if(element==this.recipe.id)
+            {
+              console.log(this.recipe.title);
+              this.whatched=true;
+            }
+          }
+        });
+        
+      } catch (error) {
+        console.log(error);
+      }
+      }
+      
+    },
+
+    async addtofavorite()
+    {
+      try {
+        
+        this.axios.default.withCredentials=true;
+        const response = await this.axios.post(
+            this.$root.store.server_domain +"/users/favorites",
+            {
+              recipeId:this.recipe.id,
+            }
+          );
+          this.axios.default.withCredentials=false;
+      }
+      catch (err) {
+            console.log(err.response);
+            this.form.submitError = err.response.data.message;
+          }
+    },
   }
 };
 </script>
