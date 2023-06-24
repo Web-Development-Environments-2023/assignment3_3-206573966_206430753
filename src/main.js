@@ -8,17 +8,28 @@ import VueRouter from "vue-router";
 
 import VueCookies from "vue-cookies";
 Vue.use(VueCookies);
+axios.defaults.withCredentials=true;
 
+
+// const cookies = new VueCookies({});
 
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
 });
 
+// import { mapActions, mapState } from 'vuex'
+// import { BModal, VBModal } from 'bootstrap-vue'
+// export default {
+//   components: { BModal },
+//   directives: { 'b-modal': VBModal },
+//   // ...
+// }
+
 import Vuelidate from "vuelidate";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
-import {
+import BootstrapVue, {
   FormGroupPlugin,
   FormPlugin,
   FormInputPlugin,
@@ -29,6 +40,8 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  IconsPlugin,
+  BootstrapVueIcons,
 } from "bootstrap-vue";
 [
   FormGroupPlugin,
@@ -41,8 +54,12 @@ import {
   AlertPlugin,
   ToastPlugin,
   LayoutPlugin,
+  IconsPlugin,
+  BootstrapVue,
+  BootstrapVueIcons,
 ].forEach((x) => Vue.use(x));
 Vue.use(Vuelidate);
+
 
 axios.interceptors.request.use(
   function(config) {
