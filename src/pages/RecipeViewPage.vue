@@ -70,7 +70,11 @@ export default {
           {withCredentials:true}
         );
         // this.axios.defaults.withCredentials=false;
-        console.log(response);
+        await this.axios.post(this.$root.store.server_domain+"/users/UserViewed",
+        {
+          recipeId: this.$route.params.recipeId
+          } ,{withCredentials:true}
+        );
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
