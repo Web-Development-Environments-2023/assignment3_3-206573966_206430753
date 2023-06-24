@@ -3,13 +3,15 @@
     <h1 class="title">Main Page</h1>
     <b-row>
     <b-col>
-    <RecipePreviewList title="Randome Recipes" class="RandomRecipes center" ref="list1"/>
+    <!-- <RecipePreviewList title="Explore this recipes" class="RandomRecipes center" ref="list1"/> -->
+    <!-- <RecipePreviewList title="Randome Recipes" ref="list1"/> -->
+
     <button @click="$refs.list1.updateRecipes()">Show New Recipes</button>
     </b-col>
-    <b-col>
-    <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }}
-    <RecipePreviewList
+    <b-col v-if="$root.store.username">
+    <!-- <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link> -->
+    <!-- {{ !$root.store.username }} -->
+    <LastViewdList
       title="Last Viewed Recipes"
       :class="{
         RandomRecipes: true,
@@ -17,7 +19,10 @@
         center: true
       }"
       disabled
-    ></RecipePreviewList></b-col>
+    ></LastViewdList></b-col>
+    <b-col v-if="!$root.store.username">
+      <LoginPage ></LoginPage>
+    </b-col>
   </b-row>
     <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
@@ -28,10 +33,14 @@
 </template>
 
 <script>
-import RecipePreviewList from "../components/RecipePreviewList";
+// import RecipePreviewList from "../components/RecipePreviewList";
+import LastViewdList from "../components/LastViewdList";
+import LoginPage from "../pages/LoginPage";
 export default {
   components: {
-    RecipePreviewList
+    // RecipePreviewList,
+    LastViewdList,
+    LoginPage
   },
   methods: {
     async restert()
