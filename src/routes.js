@@ -28,6 +28,36 @@ const routes = [
     component: () => import("./pages/RecipeViewPage"),
   },
   {
+  path: "/Myrecipe/:recipeId",
+  name: "Myrecipe",
+  component: () => import("./pages/MyRecipeViewPage"),
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: () => import("./pages/AboutPage"),
+  },
+  {
+    path: "/createRecipe",
+    name: "createRecipe",
+    component: () => import("./pages/CreateRecipePage"),
+  },
+  {
+    path: "/MyRecipe",
+    name: "MyRecipe",
+    component: () => import("./pages/MyRecipePage"),
+  },
+  {
+    path: "/FamilyRecipe",
+    name: "FamilyRecipe",
+    component: () => import("./pages/FamilyRecipePage"),
+  },
+  {
+    path: "/FavoriteRecipe",
+    name: "FavoriteRecipe",
+    component: () => import("./pages/FavoritePage"),
+  },
+  {
     path: "*",
     name: "notFound",
     component: NotFound,
