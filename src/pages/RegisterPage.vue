@@ -250,6 +250,7 @@ export default {
       return $dirty ? !$error : null;
     },
     async Register() {
+      // this function send to the server user information in the body part and create new user in the system
       try {
         const response = await this.axios.post(
           // "http://127.0.0.1:3000/Register",
@@ -271,6 +272,7 @@ export default {
       }
     },
     onRegister() {
+      //this function handle and manange the register for new user
       this.$v.form.$touch();
       if (this.$v.form.$anyError) {
         return;
@@ -278,6 +280,8 @@ export default {
       this.Register();
     },
     onReset() {
+
+      // this function cleaning the form
       this.form = {
         username: "",
         firstName: "",
