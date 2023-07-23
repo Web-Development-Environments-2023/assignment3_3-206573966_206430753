@@ -105,6 +105,7 @@ export default {
   },
   methods: {
     async Search(c,d,i,a,f,s) {
+      //this fumction make the search according to the parametrs that recived and return the search result, parametres send in the url
       try {
         const response = await this.axios.get(
           // "http://127.0.0.1:3000/Register",
@@ -130,6 +131,7 @@ export default {
       }
     },
     onSearch() {
+      // this function handle and manage the search 
       let c="()"
       let d="()"
       let i="()"
@@ -155,10 +157,12 @@ export default {
 
     onFillterPop()
     {
+      // this function fillter the result according to recipe popularity
       this.recipes=this.recipes.sort((x,b)=>b.popularity-x.popularity)
     },
     onFillterTime()
     {
+        // this function fillter the result according to recipe making time
       this.recipes=this.recipes.sort((x,b)=>b.readyInMinutes-x.readyInMinutes)
     },
     async Search1() {
