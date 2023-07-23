@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     async Logout() {
-
+    // this function handle the log out from the system to the user that currently is logged in
       try {
         const response = await this.axios.post(
           this.$root.store.server_domain +"/Logout",
