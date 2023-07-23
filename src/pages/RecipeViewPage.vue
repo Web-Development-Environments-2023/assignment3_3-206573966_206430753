@@ -53,6 +53,8 @@ export default {
     };
   },
   async created() {
+   // this function will return recipe information according to recipe id
+
     try {
       let response;
 
