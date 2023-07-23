@@ -92,6 +92,9 @@
       },
   
       async Login() {
+    
+          //this funtion will log in into the system user and pass the parmaters by the body part
+
         try {
           const response = await this.axios.post(
   
@@ -114,6 +117,7 @@
         }
       },
       onLogin() {
+          // this function is handle and manage the login to the system  
         console.log("login method called");
         this.form.submitError = undefined;
         this.$v.form.$touch();
