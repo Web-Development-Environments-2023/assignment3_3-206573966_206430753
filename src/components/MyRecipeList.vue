@@ -36,6 +36,9 @@
     },
     methods: {
       async updateRecipes() {
+        
+          //this function is getting the user recipes list 
+
         try {
           const response = await this.axios.get(
             this.$root.store.server_domain + "/users/returnMyRecipe",{withCredentials:true}
