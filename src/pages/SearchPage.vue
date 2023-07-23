@@ -166,6 +166,8 @@ export default {
       this.recipes=this.recipes.sort((x,b)=>b.readyInMinutes-x.readyInMinutes)
     },
     async Search1() {
+      //this function handles retriving the last search results of the user that is connected. 
+      //it is called only when a user is connected and search before
       console.log("search1");
       let search_text = this.$root.store.last_search_text
       let c = this.$root.store.last_search_cuisine
