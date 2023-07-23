@@ -35,6 +35,8 @@
     },
     methods: {
       async updateRecipes() {
+
+          // this function will get the user last viewed recipes for the user that is currently logged in
         try {
           const response = await this.axios.get(
             // this.$root.store.server_domain + "/recipes/random",
