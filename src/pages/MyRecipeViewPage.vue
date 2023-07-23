@@ -59,7 +59,7 @@
     },
     async created() {
 
-     // this function will return a recipe according to his recipe id that pass in the url
+     // this function will return a user recipe information according to his recipe id that pass in the url
 
         
       try {
