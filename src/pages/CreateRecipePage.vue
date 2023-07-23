@@ -366,24 +366,29 @@
       
         },
         addIng () {
+        //this function adds an ingridient to the ingridient list
         this.ing.push({ingridient: "",amount:null, state:null, measure:null, state1: null, state2: null})
         },
         addIns () {
+        //this function adds an instraction to the instraction list
         this.ins.push({
         step: '', state:null})
         this.validations
         },
         removeIng () {
+        //this function removes an ingridient from the ingridient list
           if(this.ing.length>1){
             this.ing.pop()
           }
         },
         removeIns () {
+        //this function removes an instraction from the instraction list
           if(this.ins.length>1){
             this.ins.pop()
           }
         },
         checkLengthIng(i){
+        //this function validates the ingridient field
           if(this.OkPressed){
             if(this.ing[i]["ingridient"].length>0)
             {
@@ -395,6 +400,7 @@
           }
       }, 
       checkLengthIns(i){
+          //this function validates the instraction field
           if(this.OkPressed){
             if(this.ins[i]["step"].length>0)
             {
@@ -406,6 +412,7 @@
           }
         },
         validateM(i){
+        //this function validates the mesure field
           if(this.OkPressed){
             if(this.ing[i]["measure"] != null)
             {
@@ -417,6 +424,7 @@
           }
         },
         validateA(i){
+        //this function validates the amount field
           if(this.OkPressed){
             if(this.ing[i]["amount"] != null)
             {
