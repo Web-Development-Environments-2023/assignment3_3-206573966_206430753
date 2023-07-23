@@ -71,6 +71,8 @@ export default {
   },
   methods: {
     async getIfFavorite() {
+
+      // this function check if the recipe id is exists in the user's favorite recipes list
       if(this.$root.store.username)
       
       {
@@ -101,6 +103,9 @@ export default {
 
 
     async getIfwhatched() {
+          
+      // this function check if the recipe id is exists in the user's viewed recipes list
+
       if(this.$root.store.username)
       
       {
@@ -132,6 +137,10 @@ export default {
 
     async addtofavorite()
     {
+      
+      // this function add recipe id to the user's favorite recipes list
+
+      
       try {
         
         this.axios.default.withCredentials=true;
