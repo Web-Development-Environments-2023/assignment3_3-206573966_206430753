@@ -63,7 +63,7 @@
     },
     async created() {
 
-        // this function will return and present family recipe by recipe id
+        // this function will return family recipe according to recipe id
         
       try {
         let response;
