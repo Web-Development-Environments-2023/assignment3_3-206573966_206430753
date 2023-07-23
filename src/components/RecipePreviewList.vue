@@ -36,6 +36,8 @@ export default {
   methods: {
     async updateRecipes() {
       try {
+            
+        // this function get the 3 random recipes from the server
 
         console.log(this.$root.store.server_domain + "/recipes/getRandomRecipes")
         const response = await this.axios.get(
